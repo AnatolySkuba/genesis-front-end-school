@@ -1,4 +1,4 @@
-export const URL = "http://api.wisey.app";
+export const URL = "https://api.wisey.app";
 
 export const API_VERSIONS = {
     V1: "api/v1",
