@@ -4,12 +4,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Courses } from "./components/Courses";
 import { Course } from "./components/Course";
 import "./App.css";
-import { getCredentials } from "./services/API";
 import { ROUTER_KEYS } from "./utils/constants";
 
 function App() {
-    getCredentials();
-
     return (
         <BrowserRouter>
             <Routes>

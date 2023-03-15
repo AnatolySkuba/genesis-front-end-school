@@ -10,3 +10,9 @@ export type Course = {
         courseVideoPreview: { link: string };
     };
 };
+
+export type Lesson = {
+    id: string;
+    title: string;
+    status: string;
+};
