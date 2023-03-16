@@ -34,15 +34,15 @@ export const CourseCard = ({
         ) {
             const hls = new Hls({
                 xhrSetup: (xhr) => {
-                    // xhr.responseType = "json";
-                    //         xhr.setRequestHeader(
-                    //             "Authorization",
-                    //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
-                    //         );
+                    // xhr.setRequestHeader("origin", "http://localhost:3000");
+                    // xhr.setRequestHeader(
+                    //     "Authorization",
+                    //     `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                    // );
                 },
             });
-            // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
-            hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+            hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
+            // hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
             setHlsEl(hls);
             videoEl && hls.attachMedia(videoEl);
             !savedTime && videoEl && videoEl.load();
@@ -51,8 +51,6 @@ export const CourseCard = ({
                 localStorage.removeItem(`currentTime ${id}`);
                 handleOnMouseOver();
             }
-            console.log(51, hlsEl);
-
             videoEl && hlsEl && hlsEl.startLoad(Number(savedTime));
         }
 

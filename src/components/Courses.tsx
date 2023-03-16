@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { getAllCourses } from "../services/API";
 import { CourseCard } from "./CourseCard";
 import { ROUTER_KEYS } from "../utils/constants";
+import { Course } from "../utils/types";
 
 export const Courses = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,15 +15,14 @@ export const Courses = () => {
     const pages = Math.ceil(data?.data.courses.length / 10);
     const courses = data?.data.courses.slice((currentPage - 1) * 10, currentPage * 10);
 
-    console.log(6, isLoading, currentPage, pages, data?.data.courses.length);
-
     return (
         <>
             <div className="grid gap-3 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4">
-                {courses?.map((course: any) => (
+                {courses?.map((course: Course) => (
                     <CourseCard key={course.id} {...course} />
                 ))}
             </div>
+
             {/* Pagination */}
             <nav
                 aria-label="Pagination"

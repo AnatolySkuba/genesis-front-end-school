@@ -9,12 +9,12 @@ import {
 import { SlLock } from "react-icons/sl";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Hls from "hls.js";
 
 import { getCourse } from "../services/API";
 import { ROUTER_KEYS, STORAGE_KEYS } from "../utils/constants";
 import { Lesson } from "../utils/types";
-import { toast } from "react-toastify";
 
 export const Course = (): JSX.Element => {
     const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
@@ -109,8 +109,6 @@ export const Course = (): JSX.Element => {
         }
 
         video.addEventListener("enterpictureinpicture", () => {
-            console.log(112, document.pictureInPictureElement);
-            document.pictureInPictureElement?.classList.add("before-pip");
             setIsPip(id);
         });
         video.addEventListener("leavepictureinpicture", () => {
@@ -127,6 +125,7 @@ export const Course = (): JSX.Element => {
                 }
                 video?.requestPictureInPicture();
             } catch (err) {
+                toast.error("Video failed to enter/leave Picture-in-Picture mode.");
                 console.log("Video failed to enter/leave Picture-in-Picture mode.", err);
             }
         };
@@ -194,7 +193,15 @@ export const Course = (): JSX.Element => {
                                 {lesson.title}
                             </p>
                             {lesson.status === "locked" && <SlLock size="10" color="red" />}
-                            {lesson.id === isPip && <FcStart className="animate-pulse" />}
+                            {lesson.id === isPip && (
+                                <>
+                                    <FcStart className="animate-pulse" />
+                                    <p>
+                                        Press Ctrl + &#62; to increase speed, press Ctrl + &lt; to
+                                        slow down playback
+                                    </p>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>

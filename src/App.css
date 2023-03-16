@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    .before-pip {
-        @apply before:content-['******'] before:bg-slate-400;
-    }
-}
-
 .App {
     text-align: center;
 }
@@ -35,10 +29,6 @@
 }
 
 .App-link {
-    color: #61dafb;
-}
-
-.beforePip {
     color: #61dafb;
 }
 
