@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -23,6 +25,7 @@ root.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <App />
+            <ToastContainer autoClose={2000} />
         </QueryClientProvider>
     </React.StrictMode>
 );

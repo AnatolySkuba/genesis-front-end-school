@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { FcAcceptDatabase, FcPositiveDynamic, FcVoicePresentation } from "react-icons/fc";
+import {
+    FcAcceptDatabase,
+    FcPositiveDynamic,
+    FcStart,
+    FcUndo,
+    FcVoicePresentation,
+} from "react-icons/fc";
 import { SlLock } from "react-icons/sl";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Hls from "hls.js";
 
 import { getCourse } from "../services/API";
 import { ROUTER_KEYS, STORAGE_KEYS } from "../utils/constants";
 import { Lesson } from "../utils/types";
+import { toast } from "react-toastify";
 
 export const Course = (): JSX.Element => {
     const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
+    const [isPip, setIsPip] = useState("");
+    const navigate = useNavigate();
     const { courseId } = useParams<{ courseId: string }>();
     const { data, isLoading } = useQuery(`${ROUTER_KEYS.COURSES}`, () => getCourse(courseId!));
 
@@ -58,21 +67,74 @@ export const Course = (): JSX.Element => {
 
     const pip = async (id: string) => {
         const video = document.getElementById(id) as HTMLVideoElement;
-        try {
-            if (document.pictureInPictureElement) {
-                await document.exitPictureInPicture();
-            } else {
-                await video?.requestPictureInPicture();
-            }
-        } catch (err) {
-            console.log(62, err);
 
-            // Video failed to enter/leave Picture-in-Picture mode.
+        const eventListenerKeydown = (event: KeyboardEvent) => {
+            if (event.ctrlKey) {
+                event.code === "Comma" &&
+                    (video.playbackRate =
+                        video.playbackRate >= 0.5 ? video.playbackRate - 0.25 : 0.25);
+                event.code === "Period" &&
+                    (video.playbackRate =
+                        video.playbackRate <= 3.75 ? video.playbackRate + 0.25 : 4);
+            }
+        };
+        window.addEventListener("keydown", eventListenerKeydown, false);
+
+        if (
+            Hls.isSupported() &&
+            meta.courseVideoPreview?.link &&
+            localStorage.getItem(STORAGE_KEYS.TOKEN)
+        ) {
+            const savedTime = localStorage.getItem(`currentLessonTime ${id}`);
+            const hls = new Hls({
+                xhrSetup: (xhr) => {
+                    // xhr.responseType = "json";
+                    //         xhr.setRequestHeader(
+                    //             "Authorization",
+                    //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                    //         );
+                },
+            });
+            // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
+            hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+            hls.attachMedia(video);
+            savedTime && hls.startLoad(Number(savedTime));
+            setTimeout(function () {
+                if (savedTime) video.currentTime = Number(savedTime);
+                video.play();
+            }, 150);
+            video.onpause = () => {
+                localStorage.setItem(`currentLessonTime ${id}`, video?.currentTime.toString());
+            };
         }
+
+        video.addEventListener("enterpictureinpicture", () => {
+            console.log(112, document.pictureInPictureElement);
+            document.pictureInPictureElement?.classList.add("before-pip");
+            setIsPip(id);
+        });
+        video.addEventListener("leavepictureinpicture", () => {
+            window.removeEventListener("keydown", eventListenerKeydown, false);
+            setIsPip("");
+            localStorage.setItem(`currentLessonTime ${id}`, video?.currentTime.toString());
+        });
+
+        video.onloadedmetadata = async () => {
+            try {
+                if (document.pictureInPictureElement) {
+                    localStorage.setItem(`currentLessonTime ${id}`, video?.currentTime.toString());
+                    await document.exitPictureInPicture();
+                }
+                video?.requestPictureInPicture();
+            } catch (err) {
+                console.log("Video failed to enter/leave Picture-in-Picture mode.", err);
+            }
+        };
     };
 
     return (
         <div className="p-3">
+            <FcUndo className="cursor-pointer" onClick={() => navigate(-1)} />
             <div className="h-28 w-64 mx-auto">
                 <video
                     id={id}
@@ -120,14 +182,19 @@ export const Course = (): JSX.Element => {
 
                     {lessons?.map((lesson: Lesson) => (
                         <div key={lesson.id} className="flex items-center gap-3">
-                            {/* <video id={lesson.id} src="https://example.com/file.mp4"></video> */}
+                            <video className="hidden" id={lesson.id} loop muted></video>
                             <p
                                 className="cursor-pointer text-blue-800 hover:scale-105 hover:ml-2"
-                                onClick={() => pip(lesson.id)}
+                                onClick={() =>
+                                    lesson.status === "locked"
+                                        ? toast.error("Oops, the lesson is locked!")
+                                        : pip(lesson.id)
+                                }
                             >
                                 {lesson.title}
                             </p>
                             {lesson.status === "locked" && <SlLock size="10" color="red" />}
+                            {lesson.id === isPip && <FcStart className="animate-pulse" />}
                         </div>
                     ))}
                 </div>

@@ -23,7 +23,6 @@ export const Courses = () => {
                     <CourseCard key={course.id} {...course} />
                 ))}
             </div>
-
             {/* Pagination */}
             <nav
                 aria-label="Pagination"
