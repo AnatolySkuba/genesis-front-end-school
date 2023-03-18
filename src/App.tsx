@@ -1,20 +1,31 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-import { Courses } from "./components/Courses";
-import { Course } from "./components/Course";
+import AppRouter from "./router/AppRouter";
 import "./App.css";
-import { ROUTER_KEYS } from "./utils/constants";
+import "react-toastify/dist/ReactToastify.css";
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            keepPreviousData: true,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: true,
+            cacheTime: Infinity,
+        },
+    },
+});
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path={ROUTER_KEYS.COURSES} element={<Courses />} />
-                <Route path={`${ROUTER_KEYS.COURSES}/:courseId`} element={<Course />} />
-                <Route path="*" element={<Navigate to={ROUTER_KEYS.COURSES} replace={true} />} />
-            </Routes>
-        </BrowserRouter>
+        <>
+            <QueryClientProvider client={queryClient}>
+                <AppRouter />
+            </QueryClientProvider>
+            <ToastContainer autoClose={2000} />
+        </>
     );
 }
 

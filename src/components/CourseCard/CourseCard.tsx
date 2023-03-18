@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Hls from "hls.js";
 import { FcAcceptDatabase, FcPositiveDynamic, FcVoicePresentation } from "react-icons/fc";
 
-import { Course } from "../utils/types";
-import { ROUTER_KEYS, STORAGE_KEYS } from "../utils/constants";
+import { Course } from "../../utils/types";
+import { ROUTER_KEYS, STORAGE_KEYS } from "../../utils/constants";
 
 export const CourseCard = ({
     id,
@@ -34,15 +34,15 @@ export const CourseCard = ({
         ) {
             const hls = new Hls({
                 xhrSetup: (xhr) => {
-                    // xhr.setRequestHeader("origin", "http://localhost:3000");
-                    // xhr.setRequestHeader(
-                    //     "Authorization",
-                    //     `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
-                    // );
+                    // xhr.responseType = "json";
+                    //         xhr.setRequestHeader(
+                    //             "Authorization",
+                    //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                    //         );
                 },
             });
-            hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
-            // hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+            // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
+            hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
             setHlsEl(hls);
             videoEl && hls.attachMedia(videoEl);
             !savedTime && videoEl && videoEl.load();
@@ -72,8 +72,9 @@ export const CourseCard = ({
 
     return (
         <a
-            href={`${ROUTER_KEYS.COURSES}/${id}`}
+            href={`${ROUTER_KEYS.COURSE}/${id}`}
             className="block min-w-80 rounded-lg p-3 border shadow-md shadow-gray-500 hover:scale-105"
+            data-testid="course-card"
         >
             <div className="relative h-28 w-64 mx-auto group">
                 <img
@@ -89,6 +90,7 @@ export const CourseCard = ({
                     muted
                     onMouseOver={handleOnMouseOver}
                     onMouseOut={handleOnMouseOut}
+                    data-testid="video-player"
                 />
             </div>
             <div className="mt-1">

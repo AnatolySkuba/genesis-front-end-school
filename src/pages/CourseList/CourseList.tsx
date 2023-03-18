@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 
-import { getAllCourses } from "../services/API";
-import { CourseCard } from "./CourseCard";
-import { ROUTER_KEYS } from "../utils/constants";
-import { Course } from "../utils/types";
+import { CourseCard } from "../../components";
+import { Course } from "../../utils/types";
+import { useCourseListQuery } from "./useCourseListQuery";
 
-export const Courses = () => {
+export const CourseList = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, isLoading } = useQuery(`${ROUTER_KEYS.COURSES}`, () => getAllCourses());
+    const { data, isLoading, isError } = useCourseListQuery();
+    // console.log(12, data);
+
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <div data-testid="courses-loading">Loading...</div>;
     }
+
+    if (isError) {
+        return <div data-testid="courses-error">Error!</div>;
+    }
+
     const pages = Math.ceil(data?.data.courses.length / 10);
     const courses = data?.data.courses.slice((currentPage - 1) * 10, currentPage * 10);
 
     return (
         <>
-            <div className="grid gap-3 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4">
+            <div
+                className="grid gap-3 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4"
+                data-testid="courses-wrapper"
+            >
                 {courses?.map((course: Course) => (
                     <CourseCard key={course.id} {...course} />
                 ))}

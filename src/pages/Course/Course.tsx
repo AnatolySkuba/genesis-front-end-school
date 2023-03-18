@@ -7,21 +7,20 @@ import {
     FcVoicePresentation,
 } from "react-icons/fc";
 import { SlLock } from "react-icons/sl";
-import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Hls from "hls.js";
 
-import { getCourse } from "../services/API";
-import { ROUTER_KEYS, STORAGE_KEYS } from "../utils/constants";
-import { Lesson } from "../utils/types";
+import { STORAGE_KEYS } from "../../utils/constants";
+import { Lesson } from "../../utils/types";
+import { useCourseQuery } from "./useCourseQuery";
 
 export const Course = (): JSX.Element => {
     const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
     const [isPip, setIsPip] = useState("");
     const navigate = useNavigate();
     const { courseId } = useParams<{ courseId: string }>();
-    const { data, isLoading } = useQuery(`${ROUTER_KEYS.COURSES}`, () => getCourse(courseId!));
+    const { data, isLoading, isError } = useCourseQuery(courseId!);
 
     useEffect(() => {
         if (courseId) {
@@ -31,7 +30,11 @@ export const Course = (): JSX.Element => {
     }, [courseId, videoEl, isLoading]);
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <p data-testid="course-loading">Loading...</p>;
+    }
+
+    if (isError) {
+        return <div data-testid="course-error">Error!</div>;
     }
 
     const { id, title, description, lessons, rating, meta } = data?.data;
@@ -132,9 +135,9 @@ export const Course = (): JSX.Element => {
     };
 
     return (
-        <div className="p-3">
+        <div className="p-3" data-testid="course-page">
             <FcUndo className="cursor-pointer" onClick={() => navigate(-1)} />
-            <div className="h-28 w-64 mx-auto">
+            <div className="max-w-160 mx-auto">
                 <video
                     id={id}
                     className="border h-full w-full rounded-md object-cover"

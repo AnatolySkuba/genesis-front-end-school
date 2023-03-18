@@ -14,7 +14,7 @@ export const getCredentials = async () => {
     }
 };
 
-const getConfig = async () => {
+export const getConfig = async () => {
     if (!localStorage.getItem(STORAGE_KEYS.TOKEN)) await getCredentials();
     return { headers: { Authorization: `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}` } };
 };
@@ -29,12 +29,15 @@ export const getAllCourses = async () => {
     }
 };
 
-export const getCourse = async (courseId: string) => {
-    const url = `${URL}/${API_VERSIONS.V1}/${QUERY_KEYS.CORE}/${QUERY_KEYS.PREVIEW_COURSES}/${courseId}`;
-    try {
-        const response = await axios.get(url, await getConfig());
-        return response;
-    } catch (error) {
-        if (error instanceof Error) toast.error(`Oops. ${error.message}`);
+export const getCourse = async ({ queryKey }: { queryKey: (string | { courseId: string })[] }) => {
+    const [, courseId] = queryKey;
+    if (typeof courseId === "object") {
+        const url = `${URL}/${API_VERSIONS.V1}/${QUERY_KEYS.CORE}/${QUERY_KEYS.PREVIEW_COURSES}/${courseId.courseId}`;
+        try {
+            const response = await axios.get(url, await getConfig());
+            return response;
+        } catch (error) {
+            if (error instanceof Error) toast.error(`Oops. ${error.message}`);
+        }
     }
 };

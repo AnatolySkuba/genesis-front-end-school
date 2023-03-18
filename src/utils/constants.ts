@@ -10,6 +10,7 @@ export const STORAGE_KEYS = {
 
 export const ROUTER_KEYS = {
     COURSES: "courses",
+    COURSE: "course",
 };
 
 export const QUERY_KEYS = {

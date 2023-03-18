@@ -1,32 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            keepPreviousData: true,
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: true,
-            cacheTime: Infinity,
-        },
-    },
-});
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
     <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
             <App />
-            <ToastContainer autoClose={2000} />
-        </QueryClientProvider>
+        </BrowserRouter>
     </React.StrictMode>
 );
 
