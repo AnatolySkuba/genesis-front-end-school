@@ -1,29 +1,11 @@
-import { ReactNode } from "react";
-import { render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 
 import { Course } from "./Course";
 import { useCourseQuery } from "./useCourseQuery";
+import { renderWithRouter } from "../../tests/helpers/renderWithRouter";
 
 const mockedUseCourseQuery = useCourseQuery as jest.Mock;
 jest.mock("./useCourseQuery");
-
-type Props = {
-    children: ReactNode;
-};
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            retry: false,
-        },
-    },
-});
-
-const wrapper = ({ children }: Props) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
 
 const response = {
     data: {
@@ -65,20 +47,14 @@ const response = {
     },
 };
 
-const createComponent = () =>
-    render(
-        <MemoryRouter>
-            <Course />
-        </MemoryRouter>,
-        { wrapper }
-    );
-
 describe("Course component", () => {
+    afterEach(jest.clearAllMocks);
+
     test("Displays the loading view", () => {
         mockedUseCourseQuery.mockImplementation(() => ({
             isLoading: true,
         }));
-        createComponent();
+        renderWithRouter(<Course />);
         expect(screen.getByTestId("course-loading")).toBeInTheDocument();
         expect(screen.getByText(/Loading.../i)).toBeVisible();
     });
@@ -87,17 +63,38 @@ describe("Course component", () => {
         mockedUseCourseQuery.mockImplementation(() => ({
             isError: true,
         }));
-        createComponent();
+        renderWithRouter(<Course />);
         expect(screen.getByTestId("course-error")).toBeInTheDocument();
         expect(screen.getByText(/Error!/i)).toBeVisible();
     });
 
-    test("Should render Course", () => {
+    test("Render Course correctly", () => {
         mockedUseCourseQuery.mockImplementation(() => ({
             data: response,
         }));
-        createComponent();
+        renderWithRouter(<Course />);
         expect(mockedUseCourseQuery).toBeCalledTimes(1);
         expect(screen.getByTestId("course-page")).toBeInTheDocument();
+        expect(screen.getByTestId("video-player")).toBeInTheDocument();
+        expect(screen.getByText("Lessons")).toBeInTheDocument();
+        expect(screen.getByText("Rating")).toBeInTheDocument();
+        expect(screen.getByText("Skills")).toBeInTheDocument();
+    });
+
+    test("The video tag should have loop and controls attributes", () => {
+        mockedUseCourseQuery.mockImplementation(() => ({
+            data: response,
+        }));
+        renderWithRouter(<Course />);
+        expect(screen.getByTestId("video-player")).toHaveAttribute("loop");
+        expect(screen.getByTestId("video-player")).toHaveAttribute("controls");
+    });
+
+    test("Course snapshot", () => {
+        mockedUseCourseQuery.mockImplementation(() => ({
+            data: response,
+        }));
+        renderWithRouter(<Course />);
+        expect(screen.getByTestId("course-page")).toMatchSnapshot();
     });
 });

@@ -1,29 +1,11 @@
-import { ReactNode } from "react";
-import { render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 
 import { CourseList } from "./CourseList";
 import { useCourseListQuery } from "./useCourseListQuery";
+import { renderWithRouter } from "../../tests/helpers/renderWithRouter";
 
 const mockedUseCourseListQuery = useCourseListQuery as jest.Mock;
 jest.mock("./useCourseListQuery");
-
-type Props = {
-    children: ReactNode;
-};
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            retry: false,
-        },
-    },
-});
-
-const wrapper = ({ children }: Props) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
 
 const response = {
     data: {
@@ -63,20 +45,14 @@ const response = {
     },
 };
 
-const createComponent = () =>
-    render(
-        <MemoryRouter>
-            <CourseList />
-        </MemoryRouter>,
-        { wrapper }
-    );
-
 describe("CourseList component", () => {
+    afterEach(jest.clearAllMocks);
+
     test("Displays the loading view", () => {
         mockedUseCourseListQuery.mockImplementation(() => ({
             isLoading: true,
         }));
-        createComponent();
+        renderWithRouter(<CourseList />);
         expect(screen.getByTestId("courses-loading")).toBeInTheDocument();
         expect(screen.getByText(/Loading.../i)).toBeVisible();
     });
@@ -85,17 +61,34 @@ describe("CourseList component", () => {
         mockedUseCourseListQuery.mockImplementation(() => ({
             isError: true,
         }));
-        createComponent();
+        renderWithRouter(<CourseList />);
         expect(screen.getByTestId("courses-error")).toBeInTheDocument();
         expect(screen.getByText(/Error!/i)).toBeVisible();
     });
 
-    test("Should render CourseList", () => {
+    test("Render CourseList correctly", () => {
         mockedUseCourseListQuery.mockImplementation(() => ({
             data: response,
         }));
-        createComponent();
+        renderWithRouter(<CourseList />);
+        expect(screen.getByRole("listbox")).toBeInTheDocument();
+        expect(screen.getByRole("navigation")).toBeInTheDocument();
+    });
+
+    test("Queries are called", () => {
+        mockedUseCourseListQuery.mockImplementation(() => ({
+            data: response,
+        }));
+        renderWithRouter(<CourseList />);
         expect(mockedUseCourseListQuery).toBeCalledTimes(1);
-        expect(screen.getByTestId("courses-wrapper")).toBeInTheDocument();
+    });
+
+    test("CourseList snapshots", () => {
+        mockedUseCourseListQuery.mockImplementation(() => ({
+            data: response,
+        }));
+        renderWithRouter(<CourseList />);
+        expect(screen.getByRole("listbox")).toMatchSnapshot();
+        expect(screen.getByRole("navigation")).toMatchSnapshot();
     });
 });

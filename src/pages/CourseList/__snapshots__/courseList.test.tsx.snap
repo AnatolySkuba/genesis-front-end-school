@@ -1,0 +1,583 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseList component CourseList snapshots 1`] = `
+<ul
+  class="grid gap-5 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4"
+  role="listbox"
+>
+  <li
+    class="block min-w-80 rounded-lg p-3 border shadow-md shadow-gray-500 hover:scale-105"
+  >
+    <a
+      href="course/352be3c6-848b-4c19-9e7d-54fe68fef183"
+    >
+      <div
+        class="relative h-28 w-64 mx-auto group"
+        data-testid="group"
+      >
+        <img
+          alt="Lack of Motivation & How to Overcome It"
+          class="absolute top-0 h-full w-full rounded-md object-cover group-hover:hidden"
+          src="https://wisey.app/assets/images/web/course-covers/lack-of-motivation-how-to-overcome-it/cover.webp"
+        />
+        <video
+          class="absolute top-0 h-full w-full opacity-0 rounded-md object-cover group-hover:opacity-100"
+          data-testid="video-player"
+          id="352be3c6-848b-4c19-9e7d-54fe68fef183"
+          loop=""
+          preload="none"
+        />
+      </div>
+      <div
+        class="mt-1"
+      >
+        <p
+          class="font-medium"
+        >
+          Lack of Motivation & How to Overcome It
+        </p>
+        <p
+          class="text-sm text-gray-500"
+        >
+          Reignite your inner drive by managing factors that dampen your motivation.
+        </p>
+        <div
+          class="flex items-center gap-3 mt-1 text-xs"
+        >
+          <div>
+            <p
+              class="text-gray-500"
+            >
+              Lessons
+            </p>
+            <p
+              class="flex font-medium gap-1"
+            >
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#D1C4E9"
+                >
+                  <path
+                    d="M38,7H10C8.9,7,8,7.9,8,9v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2V9C40,7.9,39.1,7,38,7z"
+                  />
+                  <path
+                    d="M38,19H10c-1.1,0-2,0.9-2,2v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2v-6C40,19.9,39.1,19,38,19z"
+                  />
+                  <path
+                    d="M38,31H10c-1.1,0-2,0.9-2,2v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2v-6C40,31.9,39.1,31,38,31z"
+                  />
+                </g>
+                <circle
+                  cx="38"
+                  cy="38"
+                  fill="#43A047"
+                  r="10"
+                />
+                <polygon
+                  fill="#DCEDC8"
+                  points="42.5,33.3 36.8,39 34.1,36.3 32,38.5 36.8,43.3 44.6,35.5"
+                />
+              </svg>
+              2
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-gray-500"
+            >
+              Rating
+            </p>
+            <p
+              class="flex font-medium gap-1"
+            >
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#00BCD4"
+                >
+                  <rect
+                    height="20"
+                    width="10"
+                    x="19"
+                    y="22"
+                  />
+                  <rect
+                    height="34"
+                    width="10"
+                    x="32"
+                    y="8"
+                  />
+                  <rect
+                    height="12"
+                    width="10"
+                    x="6"
+                    y="30"
+                  />
+                </g>
+                <g
+                  fill="#3F51B5"
+                >
+                  <polygon
+                    points="11,8 21,18 21,8"
+                  />
+                  <rect
+                    height="14.1"
+                    transform="matrix(-.707 -.707 .707 -.707 10.879 36.506)"
+                    width="4"
+                    x="11"
+                    y="8.9"
+                  />
+                </g>
+              </svg>
+              3.5
+            </p>
+          </div>
+          <div>
+            <div
+              class="flex gap-2"
+            >
+              <p
+                class="text-gray-500"
+              >
+                Skills
+              </p>
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M40,22h-8l-4,4V12c0-2.2,1.8-4,4-4h8c2.2,0,4,1.8,4,4v6C44,20.2,42.2,22,40,22z"
+                  fill="#2196F3"
+                />
+                <circle
+                  cx="17"
+                  cy="19"
+                  fill="#FFA726"
+                  r="8"
+                />
+                <path
+                  d="M30,36.7c0,0-3.6-6.7-13-6.7S4,36.7,4,36.7V40h26V36.7z"
+                  fill="#607D8B"
+                />
+              </svg>
+            </div>
+            <ul>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Aligning your goals with your motives
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Overcoming decision paralysis
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Reframing negative self-talk
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Gaining clarity
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Challenging yourself
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </a>
+  </li>
+</ul>
+`;
+
+exports[`CourseList component CourseList snapshots 2`] = `
+<nav
+  aria-label="Pagination"
+  class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0 caret-transparent"
+>
+  <p
+    class="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15 19l-7-7 7-7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      />
+    </svg>
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer bg-gray-200 text-gray-900 font-medium"
+  >
+    1
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer false"
+  >
+    2
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer false"
+  >
+    3
+  </p>
+  <p
+    class="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9 5l7 7-7 7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      />
+    </svg>
+  </p>
+</nav>
+`;
+
+exports[`CourseList component List snapshot 1`] = `
+<ul
+  class="grid gap-5 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4"
+  role="listbox"
+>
+  <li
+    class="block min-w-80 rounded-lg p-3 border shadow-md shadow-gray-500 hover:scale-105"
+  >
+    <a
+      href="course/352be3c6-848b-4c19-9e7d-54fe68fef183"
+    >
+      <div
+        class="relative h-28 w-64 mx-auto group"
+        data-testid="group"
+      >
+        <img
+          alt="Lack of Motivation & How to Overcome It"
+          class="absolute top-0 h-full w-full rounded-md object-cover group-hover:hidden"
+          src="https://wisey.app/assets/images/web/course-covers/lack-of-motivation-how-to-overcome-it/cover.webp"
+        />
+        <video
+          class="absolute top-0 h-full w-full opacity-0 rounded-md object-cover group-hover:opacity-100"
+          data-testid="video-player"
+          id="352be3c6-848b-4c19-9e7d-54fe68fef183"
+          loop=""
+          preload="none"
+        />
+      </div>
+      <div
+        class="mt-1"
+      >
+        <p
+          class="font-medium"
+        >
+          Lack of Motivation & How to Overcome It
+        </p>
+        <p
+          class="text-sm text-gray-500"
+        >
+          Reignite your inner drive by managing factors that dampen your motivation.
+        </p>
+        <div
+          class="flex items-center gap-3 mt-1 text-xs"
+        >
+          <div>
+            <p
+              class="text-gray-500"
+            >
+              Lessons
+            </p>
+            <p
+              class="flex font-medium gap-1"
+            >
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#D1C4E9"
+                >
+                  <path
+                    d="M38,7H10C8.9,7,8,7.9,8,9v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2V9C40,7.9,39.1,7,38,7z"
+                  />
+                  <path
+                    d="M38,19H10c-1.1,0-2,0.9-2,2v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2v-6C40,19.9,39.1,19,38,19z"
+                  />
+                  <path
+                    d="M38,31H10c-1.1,0-2,0.9-2,2v6c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2v-6C40,31.9,39.1,31,38,31z"
+                  />
+                </g>
+                <circle
+                  cx="38"
+                  cy="38"
+                  fill="#43A047"
+                  r="10"
+                />
+                <polygon
+                  fill="#DCEDC8"
+                  points="42.5,33.3 36.8,39 34.1,36.3 32,38.5 36.8,43.3 44.6,35.5"
+                />
+              </svg>
+              2
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-gray-500"
+            >
+              Rating
+            </p>
+            <p
+              class="flex font-medium gap-1"
+            >
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="#00BCD4"
+                >
+                  <rect
+                    height="20"
+                    width="10"
+                    x="19"
+                    y="22"
+                  />
+                  <rect
+                    height="34"
+                    width="10"
+                    x="32"
+                    y="8"
+                  />
+                  <rect
+                    height="12"
+                    width="10"
+                    x="6"
+                    y="30"
+                  />
+                </g>
+                <g
+                  fill="#3F51B5"
+                >
+                  <polygon
+                    points="11,8 21,18 21,8"
+                  />
+                  <rect
+                    height="14.1"
+                    transform="matrix(-.707 -.707 .707 -.707 10.879 36.506)"
+                    width="4"
+                    x="11"
+                    y="8.9"
+                  />
+                </g>
+              </svg>
+              3.5
+            </p>
+          </div>
+          <div>
+            <div
+              class="flex gap-2"
+            >
+              <p
+                class="text-gray-500"
+              >
+                Skills
+              </p>
+              <svg
+                enable-background="new 0 0 48 48"
+                fill="currentColor"
+                height="16"
+                stroke="currentColor"
+                stroke-width="0"
+                version="1"
+                viewBox="0 0 48 48"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M40,22h-8l-4,4V12c0-2.2,1.8-4,4-4h8c2.2,0,4,1.8,4,4v6C44,20.2,42.2,22,40,22z"
+                  fill="#2196F3"
+                />
+                <circle
+                  cx="17"
+                  cy="19"
+                  fill="#FFA726"
+                  r="8"
+                />
+                <path
+                  d="M30,36.7c0,0-3.6-6.7-13-6.7S4,36.7,4,36.7V40h26V36.7z"
+                  fill="#607D8B"
+                />
+              </svg>
+            </div>
+            <ul>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Aligning your goals with your motives
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Overcoming decision paralysis
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Reframing negative self-talk
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Gaining clarity
+                </p>
+              </li>
+              <li>
+                <p
+                  class="w-50 font-medium"
+                >
+                  Challenging yourself
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </a>
+  </li>
+</ul>
+`;
+
+exports[`CourseList component List snapshot 2`] = `
+<nav
+  aria-label="Pagination"
+  class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0 caret-transparent"
+>
+  <p
+    class="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15 19l-7-7 7-7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      />
+    </svg>
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer bg-gray-200 text-gray-900 font-medium"
+  >
+    1
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer false"
+  >
+    2
+  </p>
+  <p
+    class="w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer false"
+  >
+    3
+  </p>
+  <p
+    class="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
+  >
+    <svg
+      class="h-6 w-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9 5l7 7-7 7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      />
+    </svg>
+  </p>
+</nav>
+`;

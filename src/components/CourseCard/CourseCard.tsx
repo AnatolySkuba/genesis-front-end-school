@@ -34,15 +34,15 @@ export const CourseCard = ({
         ) {
             const hls = new Hls({
                 xhrSetup: (xhr) => {
-                    // xhr.responseType = "json";
-                    //         xhr.setRequestHeader(
-                    //             "Authorization",
-                    //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
-                    //         );
+                    xhr.responseType = "json";
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                    );
                 },
             });
-            // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
-            hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+            hls.loadSource(meta.courseVideoPreview?.link);
+            // hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
             setHlsEl(hls);
             videoEl && hls.attachMedia(videoEl);
             !savedTime && videoEl && videoEl.load();
@@ -71,66 +71,68 @@ export const CourseCard = ({
     };
 
     return (
-        <a
-            href={`${ROUTER_KEYS.COURSE}/${id}`}
-            className="block min-w-80 rounded-lg p-3 border shadow-md shadow-gray-500 hover:scale-105"
-            data-testid="course-card"
-        >
-            <div className="relative h-28 w-64 mx-auto group">
-                <img
-                    alt={title}
-                    src={`${previewImageLink}/cover.webp`}
-                    className="absolute top-0 h-full w-full rounded-md object-cover group-hover:hidden"
-                />
-                <video
-                    id={id}
-                    className="absolute top-0 h-full w-full opacity-0 rounded-md object-cover group-hover:opacity-100"
-                    loop
-                    preload="none"
-                    muted
-                    onMouseOver={handleOnMouseOver}
-                    onMouseOut={handleOnMouseOut}
-                    data-testid="video-player"
-                />
-            </div>
-            <div className="mt-1">
-                <p className="font-medium">{title}</p>
-                <p className="text-sm text-gray-500">{description}</p>
+        <li className="block min-w-80 rounded-lg p-3 border shadow-md shadow-gray-500 hover:scale-105">
+            <a href={`${ROUTER_KEYS.COURSE}/${id}`}>
+                <div className="relative h-28 w-64 mx-auto group" data-testid="group">
+                    <img
+                        alt={title}
+                        src={`${previewImageLink}/cover.webp`}
+                        className="absolute top-0 h-full w-full rounded-md object-cover group-hover:hidden"
+                    />
+                    <video
+                        id={id}
+                        className="absolute top-0 h-full w-full opacity-0 rounded-md object-cover group-hover:opacity-100"
+                        loop
+                        preload="none"
+                        muted
+                        onMouseOver={handleOnMouseOver}
+                        onMouseOut={handleOnMouseOut}
+                        data-testid="video-player"
+                    />
+                </div>
+                <div className="mt-1">
+                    <p className="font-medium">{title}</p>
+                    <p className="text-sm text-gray-500">{description}</p>
 
-                <div className="flex items-center gap-3 mt-1 text-xs">
-                    <div>
-                        <p className="text-gray-500">Lessons</p>
-                        <p className="flex font-medium gap-1">
-                            <FcAcceptDatabase size="16" />
-                            {lessonsCount}
-                        </p>
-                    </div>
-
-                    <div>
-                        <p className="text-gray-500">Rating</p>
-                        <p className="flex font-medium gap-1">
-                            <FcPositiveDynamic size="16" />
-                            {rating}
-                        </p>
-                    </div>
-
-                    <div>
-                        <div className="flex gap-2">
-                            <p className="text-gray-500">Skills</p>
-                            <FcVoicePresentation size="16" />
+                    <div className="flex items-center gap-3 mt-1 text-xs">
+                        <div>
+                            <p className="text-gray-500">Lessons</p>
+                            <p className="flex font-medium gap-1">
+                                <FcAcceptDatabase size="16" />
+                                {lessonsCount}
+                            </p>
                         </div>
-                        {meta.skills ? (
-                            meta.skills?.map((skill, index) => (
-                                <p key={index} className="w-50 font-medium">
-                                    {skill}
-                                </p>
-                            ))
-                        ) : (
-                            <p>?</p>
-                        )}
+
+                        <div>
+                            <p className="text-gray-500">Rating</p>
+                            <p className="flex font-medium gap-1">
+                                <FcPositiveDynamic size="16" />
+                                {rating}
+                            </p>
+                        </div>
+
+                        <div>
+                            <div className="flex gap-2">
+                                <p className="text-gray-500">Skills</p>
+                                <FcVoicePresentation size="16" />
+                            </div>
+                            <ul>
+                                {meta.skills ? (
+                                    meta.skills?.map((skill, index) => (
+                                        <li key={index}>
+                                            <p className="w-50 font-medium">{skill}</p>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li>
+                                        <p>?</p>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </li>
     );
 };

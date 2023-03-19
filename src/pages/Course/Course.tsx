@@ -48,16 +48,17 @@ export const Course = (): JSX.Element => {
         const savedTime = localStorage.getItem(`currentCourseTime ${id}`);
         const hls = new Hls({
             xhrSetup: (xhr) => {
-                // xhr.responseType = "json";
-                //         xhr.setRequestHeader(
-                //             "Authorization",
-                //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
-                //         );
+                xhr.responseType = "json";
+                xhr.setRequestHeader(
+                    "Authorization",
+                    `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                );
             },
         });
-        // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
-        hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+        hls.loadSource(meta.courseVideoPreview?.link);
+        // hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
         hls.attachMedia(videoEl);
+
         savedTime && hls.startLoad(Number(savedTime));
         setTimeout(function () {
             if (savedTime) videoEl.currentTime = Number(savedTime);
@@ -91,15 +92,15 @@ export const Course = (): JSX.Element => {
             const savedTime = localStorage.getItem(`currentLessonTime ${id}`);
             const hls = new Hls({
                 xhrSetup: (xhr) => {
-                    // xhr.responseType = "json";
-                    //         xhr.setRequestHeader(
-                    //             "Authorization",
-                    //             `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
-                    //         );
+                    xhr.responseType = "json";
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        `Bearer ${localStorage.getItem(STORAGE_KEYS.TOKEN)}`
+                    );
                 },
             });
-            // hls.loadSource(meta.courseVideoPreview?.link); // console.log(20, video);
-            hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+            hls.loadSource(meta.courseVideoPreview?.link);
+            // hls.loadSource("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
             hls.attachMedia(video);
             savedTime && hls.startLoad(Number(savedTime));
             setTimeout(function () {
@@ -136,7 +137,7 @@ export const Course = (): JSX.Element => {
 
     return (
         <div className="p-3" data-testid="course-page">
-            <FcUndo className="cursor-pointer" onClick={() => navigate(-1)} />
+            <FcUndo className="cursor-pointer" onClick={() => navigate(-1)} role="link" />
             <div className="max-w-160 mx-auto">
                 <video
                     id={id}
@@ -144,6 +145,7 @@ export const Course = (): JSX.Element => {
                     loop
                     muted
                     controls
+                    data-testid="video-player"
                 />
             </div>
             <div className="mt-1">
@@ -164,15 +166,19 @@ export const Course = (): JSX.Element => {
                             <p className="text-gray-500">Skills</p>
                             <FcVoicePresentation size="16" />
                         </div>
-                        {meta.skills ? (
-                            meta.skills?.map((skill: string, index: number) => (
-                                <p key={index} className="w-50 font-medium">
-                                    {skill}
-                                </p>
-                            ))
-                        ) : (
-                            <p>?</p>
-                        )}
+                        <ul>
+                            {meta.skills ? (
+                                meta.skills?.map((skill: string, index: number) => (
+                                    <li key={index}>
+                                        <p className="w-50 font-medium">{skill}</p>
+                                    </li>
+                                ))
+                            ) : (
+                                <li>
+                                    <p>?</p>
+                                </li>
+                            )}
+                        </ul>
                     </div>
                 </div>
 
@@ -182,31 +188,34 @@ export const Course = (): JSX.Element => {
                         <FcAcceptDatabase size="16" />
                     </div>
 
-                    {lessons?.map((lesson: Lesson) => (
-                        <div key={lesson.id} className="flex items-center gap-3">
-                            <video className="hidden" id={lesson.id} loop muted></video>
-                            <p
-                                className="cursor-pointer text-blue-800 hover:scale-105 hover:ml-2"
-                                onClick={() =>
-                                    lesson.status === "locked"
-                                        ? toast.error("Oops, the lesson is locked!")
-                                        : pip(lesson.id)
-                                }
-                            >
-                                {lesson.title}
-                            </p>
-                            {lesson.status === "locked" && <SlLock size="10" color="red" />}
-                            {lesson.id === isPip && (
-                                <>
-                                    <FcStart className="animate-pulse" />
-                                    <p>
-                                        Press Ctrl + &#62; to increase speed, press Ctrl + &lt; to
-                                        slow down playback
-                                    </p>
-                                </>
-                            )}
-                        </div>
-                    ))}
+                    <ul>
+                        {lessons?.map((lesson: Lesson) => (
+                            <li key={lesson.id} className="flex items-center gap-3">
+                                <video className="hidden" id={lesson.id} loop muted></video>
+                                <p
+                                    className="cursor-pointer text-blue-800 hover:scale-105 hover:ml-2"
+                                    onClick={() =>
+                                        lesson.status === "locked"
+                                            ? toast.error("Oops, the lesson is locked!")
+                                            : pip(lesson.id)
+                                    }
+                                    role="button"
+                                >
+                                    {lesson.title}
+                                </p>
+                                {lesson.status === "locked" && <SlLock size="10" color="red" />}
+                                {lesson.id === isPip && (
+                                    <>
+                                        <FcStart className="animate-pulse" />
+                                        <p>
+                                            Press Ctrl + &#62; to increase speed, press Ctrl + &lt;
+                                            to slow down playback
+                                        </p>
+                                    </>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>

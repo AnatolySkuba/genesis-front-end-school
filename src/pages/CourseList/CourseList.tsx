@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { CourseCard } from "../../components";
 import { Course } from "../../utils/types";
 import { useCourseListQuery } from "./useCourseListQuery";
 
 export const CourseList = () => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [searchParams, setSearchParams] = useSearchParams();
     const { data, isLoading, isError } = useCourseListQuery();
-    // console.log(12, data);
+
+    const page = Number(searchParams.get("page")) || 1;
 
     if (isLoading) {
         return <div data-testid="courses-loading">Loading...</div>;
@@ -18,18 +20,18 @@ export const CourseList = () => {
     }
 
     const pages = Math.ceil(data?.data.courses.length / 10);
-    const courses = data?.data.courses.slice((currentPage - 1) * 10, currentPage * 10);
+    const courses = data?.data.courses.slice((page - 1) * 10, page * 10);
 
     return (
         <>
-            <div
-                className="grid gap-3 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4"
-                data-testid="courses-wrapper"
+            <ul
+                className="grid gap-5 p-4 justify-items-center tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4"
+                role="listbox"
             >
                 {courses?.map((course: Course) => (
                     <CourseCard key={course.id} {...course} />
                 ))}
-            </div>
+            </ul>
 
             {/* Pagination */}
             <nav
@@ -38,7 +40,11 @@ export const CourseList = () => {
             >
                 <p
                     className="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
-                    onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage)}
+                    onClick={() =>
+                        setSearchParams({
+                            page: (page > 1 ? page - 1 : page).toString(),
+                        })
+                    }
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -57,32 +63,34 @@ export const CourseList = () => {
                 </p>
                 <p
                     className={`w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer ${
-                        currentPage === 1 && "bg-gray-200 text-gray-900 font-medium"
+                        page === 1 && "bg-gray-200 text-gray-900 font-medium"
                     }`}
-                    onClick={() => setCurrentPage(1)}
+                    onClick={() => setSearchParams({ page: "1" })}
                 >
                     1
                 </p>
                 <p
                     className={`w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer ${
-                        currentPage === 2 && "bg-gray-200 text-gray-900 font-medium"
+                        page === 2 && "bg-gray-200 text-gray-900 font-medium"
                     }`}
-                    onClick={() => setCurrentPage(2)}
+                    onClick={() => setSearchParams({ page: "2" })}
                 >
                     2
                 </p>
                 <p
                     className={`w-10 h-10 text-center leading-10 rounded hover:bg-gray-100 cursor-pointer ${
-                        currentPage === 3 && "bg-gray-200 text-gray-900 font-medium"
+                        page === 3 && "bg-gray-200 text-gray-900 font-medium"
                     }`}
-                    onClick={() => setCurrentPage(3)}
+                    onClick={() => setSearchParams({ page: "3" })}
                 >
                     3
                 </p>
                 <p
                     className="p-2 ml-4 rounded hover:bg-gray-100 cursor-pointer"
                     onClick={() =>
-                        setCurrentPage(pages > currentPage ? currentPage + 1 : currentPage)
+                        setSearchParams({
+                            page: (pages > page ? page + 1 : page).toString(),
+                        })
                     }
                 >
                     <svg
