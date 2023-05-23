@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import {
-  API_VERSIONS, BASE_URL, QUERY_KEYS, STORAGE_KEYS,
-} from 'shared/consts';
+import { API_VERSIONS, BACKUP_TOKEN, BASE_URL, QUERY_KEYS, STORAGE_KEYS } from 'shared/consts';
 import { Token } from 'shared/types';
 
 export const getCredentials = async () => {
@@ -12,7 +10,10 @@ export const getCredentials = async () => {
 
     localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
   } catch (error) {
-    if (error instanceof Error) { throw new Error(`Oops, error in getting credentials. ${error.message}`); }
+    if (error instanceof Error) {
+      localStorage.setItem(STORAGE_KEYS.TOKEN, BACKUP_TOKEN);
+      throw new Error(`Oops, error in getting credentials. ${error.message}`);
+    }
   }
 };
 

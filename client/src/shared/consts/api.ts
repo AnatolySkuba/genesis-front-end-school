@@ -1,6 +1,9 @@
-export const BASE_URL = 'https://api.wisey.app';
-export const MY_BASE_URL = 'https://server-for-genesis-frontend-school.loca.lt';
+export const BASE_URL = 'https://server-for-genesis-frontend-school.loca.lt';
 
 export enum API_VERSIONS {
   V1 = 'api/v1',
+  V2 = 'api/v2',
 }
+
+export const BACKUP_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU0MDE1Zi1iMjFhLTQxOWItYjc1NC0zY2Y2NTZhYTVmMzIiLCJwbGF0Zm9ybSI6InN1YnNjcmlwdGlvbnMiLCJpYXQiOjE2ODQ4NDY0MTcsImV4cCI6MTY4NDg0NzMxN30.mMRi8SHFYNZFgi-LLeEx7QKpyOBdss3_gftWuS9Mb6M';
