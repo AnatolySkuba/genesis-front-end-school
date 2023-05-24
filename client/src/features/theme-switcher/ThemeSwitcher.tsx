@@ -7,9 +7,9 @@ const ThemeSwitcher: FC = () => {
 
   useEffect(() => {
     if (
-      localStorage.getItem('color-theme') === 'dark'
-      || (!('color-theme' in localStorage)
-        && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       setThemeDark(true);
     }

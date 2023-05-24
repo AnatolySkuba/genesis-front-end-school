@@ -4008,10 +4008,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-courses-components@^1.0.56:
-  version "1.0.56"
-  resolved "https://registry.yarnpkg.com/courses-components/-/courses-components-1.0.56.tgz#9b07e8a4fc9402a41e8b43a124e8c947cd31fb79"
-  integrity sha512-bXRf2xt8anE6xMfzt4oCeiFH9+9REu+qOtw+wKis7h17HbDLe4zWmeVwUOMh7+ePn72kXGRr5WQ5Q8nwuGLvXQ==
+courses-components@^1.0.60:
+  version "1.0.60"
+  resolved "https://registry.yarnpkg.com/courses-components/-/courses-components-1.0.60.tgz#2bcc211ad650545fc21c2226a306dba750e97c30"
+  integrity sha512-AUaDH5eXb8xdycb7XRuFAkJeyvKDu8pYze1sm8XGd2VHz/vjXWWFUxYABsQfJ4MI1QfnzaN8kc2wwqrvglmmcw==
 
 create-require@^1.1.0:
   version "1.1.1"

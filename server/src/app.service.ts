@@ -44,19 +44,14 @@ export class AppService {
     const currentPageUp = currentPage ? currentPage : 1;
     const perPageUp = perPage ? perPage : 10;
 
-    const url = `https://api.wisey.app/api/v1/core/preview-courses`;
     try {
-      const response = await axios.get(url, await this.getConfig());
+      const data = await this.getCourses();
 
       const currentPageCourses = [];
       const startIndex = (currentPageUp - 1) * perPageUp;
       const endIndex = currentPageUp * perPageUp;
-      for (
-        let i = startIndex;
-        i < endIndex && i < response.data.courses.length;
-        i++
-      ) {
-        currentPageCourses.push(response.data.courses[i]);
+      for (let i = startIndex; i < endIndex && i < data.courses.length; i++) {
+        currentPageCourses.push(data.courses[i]);
       }
 
       return {
