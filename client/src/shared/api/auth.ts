@@ -7,6 +7,7 @@ export const getCredentials = async () => {
   const url = `${BASE_URL}/${API_VERSIONS.V1}/${QUERY_KEYS.AUTH}/${QUERY_KEYS.ANONYMOUS}?platform=subscriptions`;
   try {
     const response = await axios.get<Token>(url);
+    console.log(10, response.data);
 
     localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
   } catch (error) {
